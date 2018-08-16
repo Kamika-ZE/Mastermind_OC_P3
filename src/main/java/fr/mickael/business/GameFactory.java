@@ -1,8 +1,8 @@
-package fr.mickael.business;
+package main.java.fr.mickael.business;
 
-import fr.mickael.model.ComputerMastermind;
-import fr.mickael.model.ComputerMoreOrLess;
-import fr.mickael.model.Human;
+import main.java.fr.mickael.model.ComputerMastermind;
+import main.java.fr.mickael.model.ComputerMoreOrLess;
+import main.java.fr.mickael.model.Human;
 
 public class GameFactory {
 

@@ -1,6 +1,6 @@
-package fr.mickael.model;
+package main.java.fr.mickael.model;
 
-import static fr.mickael.util.Config.*;
+import static main.java.fr.mickael.util.Config.*;
 
 public class ComputerMoreOrLess extends Computer {
 

@@ -1,4 +1,4 @@
-package fr.mickael.model;
+package main.java.fr.mickael.model;
 
 public interface Player {
 

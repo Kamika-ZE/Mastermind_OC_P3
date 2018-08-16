@@ -1,9 +1,9 @@
-package fr.mickael.business;
+package main.java.fr.mickael.business;
 
 import java.util.Arrays;
 
-import static fr.mickael.util.Config.codeLength;
-import static fr.mickael.util.Config.maxRound;
+import static main.java.fr.mickael.util.Config.codeLength;
+import static main.java.fr.mickael.util.Config.maxRound;
 
 public class MoreOrLess extends Game{
 

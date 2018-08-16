@@ -1,6 +1,6 @@
-package fr.mickael.model;
+package main.java.fr.mickael.model;
 
-import static fr.mickael.util.Config.codeLength;
+import static main.java.fr.mickael.util.Config.codeLength;
 import java.util.Scanner;
 
 public class Human implements Player{

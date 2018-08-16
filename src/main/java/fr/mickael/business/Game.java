@@ -1,6 +1,6 @@
-package fr.mickael.business;
+package main.java.fr.mickael.business;
 
-import fr.mickael.model.Player;
+import main.java.fr.mickael.model.Player;
 
 public abstract class Game {
 

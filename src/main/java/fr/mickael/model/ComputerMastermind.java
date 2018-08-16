@@ -1,4 +1,6 @@
-package fr.mickael.model;
+package main.java.fr.mickael.model;
+
+import main.java.fr.mickael.util.AllPossibleCode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static fr.mickael.util.Config.codeLength;
-import static fr.mickael.util.Config.nbDigit;
+import static main.java.fr.mickael.util.Config.*;
 
 public class ComputerMastermind extends Computer{
 
@@ -23,7 +24,9 @@ public class ComputerMastermind extends Computer{
         this.allPossibleScore = generateAllPossibleScore();
     }
 
-
+    public List<int[]> getAllPossibilities() {
+        return allPossibilities;
+    }
 
     @Override
     public int[] guessTheCode() {
@@ -41,6 +44,7 @@ public class ComputerMastermind extends Computer{
                 weightMin = weight;
             }
         }
+        System.out.println(weightMin);
         // premier code avec poids mini
         List<int[]> allTabMinWeight = new ArrayList<>();
         for (int i = 0; i < allPossibilities.size(); i++) {
@@ -77,16 +81,11 @@ public class ComputerMastermind extends Computer{
     }
 
     private List<int[]> generateAllPossibilities() {
+
         List<int[]> allPossibilities = new ArrayList<>();
-        for (int digit1 = 0; digit1 < nbDigit; digit1++){
-            for (int digit2 = 0; digit2 < nbDigit; digit2++){
-                for (int digit3 = 0; digit3 < nbDigit; digit3++){
-                    for (int digit4 = 0; digit4 < nbDigit; digit4++) {
-                        allPossibilities.add(new int[]{digit1, digit2, digit3, digit4});
-                    }
-                }
-            }
-        }
+        AllPossibleCode allPossibleCode = new AllPossibleCode();
+        allPossibleCode.generateAllCode(codeIndex);
+        allPossibilities = allPossibleCode.getAllCode();
         return allPossibilities;
     }
 
@@ -129,30 +128,14 @@ public class ComputerMastermind extends Computer{
         }
 
         // calcul des présents
-        // comme on doit enlever les pions bien placés, on initialise nbPresent à - nbWellPlaced
-        int nbPresent = - nbWellPlaced;
 
-        for (int i = 0; i < nbDigit; i++){
-            int presentSecretCode = 0;
-            int presentGuessCode = 0;
-            for (int j = 0; j < codeLength; j++){
-                if (secretCode[j] == i){
-                    presentSecretCode++;
-                }
-                if (guessCode[j] == i){
-                    presentGuessCode++;
-                }
-            }
-            if (presentSecretCode < presentGuessCode){
-                nbPresent = presentSecretCode + nbPresent;
-            } else {
-                nbPresent = presentGuessCode + nbPresent;
-            }
-        }
+        int nbPresent = getNbPresent(guessCode, secretCode, nbWellPlaced);
         scoreGuessCode = 10 * nbWellPlaced + nbPresent;
 
         return scoreGuessCode;
     }
+
+
 
     private int getPropositionWeight (int[] array) {
         int[] scoreTab = new int[allPossibleScore.size()];
@@ -170,4 +153,5 @@ public class ComputerMastermind extends Computer{
         }
         return weightProp;
     }
+
 }

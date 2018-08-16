@@ -1,4 +1,4 @@
-package fr.mickael.views.contracts;
+package main.java.fr.mickael.views.contracts;
 
 public class Launcher {
 

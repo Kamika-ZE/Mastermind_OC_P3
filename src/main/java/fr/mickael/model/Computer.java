@@ -1,7 +1,7 @@
-package fr.mickael.model;
+package main.java.fr.mickael.model;
 
 import java.util.Random;
-import static fr.mickael.util.Config.*;
+import static main.java.fr.mickael.util.Config.*;
 
 public abstract class Computer implements Player{
 

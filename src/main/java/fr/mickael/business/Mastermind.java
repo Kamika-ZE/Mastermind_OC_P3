@@ -1,8 +1,11 @@
-package fr.mickael.business;
+package main.java.fr.mickael.business;
+
+import main.java.fr.mickael.util.Config;
 
 import java.util.Arrays;
 
-import static fr.mickael.util.Config.*;
+import static main.java.fr.mickael.util.Config.codeLength;
+import static main.java.fr.mickael.util.Config.maxRound;
 
 public class Mastermind extends Game{
 
@@ -45,25 +48,7 @@ public class Mastermind extends Game{
             }
         }
         // calcul des présents
-        // comme on doit enlever les pions bien placés, on initialise nbPresent à - nbWellPlaced
-        int nbPresent = - nbWellPlaced;
-        for (int i = 0; i < nbDigit; i++){
-            int presentSecretCode = 0;
-            int presentGuessCode = 0;
-            for (int j = 0; j < codeLength; j++){
-                if (secretCode[j] == i){
-                    presentSecretCode++;
-                }
-                if (guessCode[j] == i){
-                    presentGuessCode++;
-                }
-            }
-            if (presentSecretCode < presentGuessCode){
-                nbPresent = presentSecretCode + nbPresent;
-            } else {
-                nbPresent = presentGuessCode + nbPresent;
-            }
-        }
+        int nbPresent = Config.getNbPresent(guessCode, secretCode, nbWellPlaced);
         strB.append(nbWellPlaced + " Bien placés " + nbPresent + " Présents");
         return strB.toString();
     }

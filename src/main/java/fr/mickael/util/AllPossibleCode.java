@@ -22,7 +22,7 @@ public class AllPossibleCode {
         }
 
         for(int i = 0 ; i < nbDigit; i++) {
-            code[codeIndex]=i;
+            code[codeIndex] = i;
             generateAllCode(codeIndex + 1);
         }
     }

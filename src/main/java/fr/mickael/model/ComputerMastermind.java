@@ -1,6 +1,7 @@
 package main.java.fr.mickael.model;
 
 import main.java.fr.mickael.util.AllPossibleCode;
+import main.java.fr.mickael.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +9,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static main.java.fr.mickael.util.Config.*;
+import static main.java.fr.mickael.util.Config.codeIndex;
+import static main.java.fr.mickael.util.Config.codeLength;
 
 public class ComputerMastermind extends Computer{
 
@@ -129,7 +131,7 @@ public class ComputerMastermind extends Computer{
 
         // calcul des présents
 
-        int nbPresent = getNbPresent(guessCode, secretCode, nbWellPlaced);
+        int nbPresent = Util.getNbPresent(guessCode, secretCode, nbWellPlaced);
         scoreGuessCode = 10 * nbWellPlaced + nbPresent;
 
         return scoreGuessCode;

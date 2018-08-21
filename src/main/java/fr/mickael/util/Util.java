@@ -2,7 +2,7 @@ package main.java.fr.mickael.util;
 
 import static main.java.fr.mickael.util.Config.*;
 
-public class Utils {
+public class Util {
 
     public static int getNbPresent(int[] guessCode, int[] secretCode, int nbWellPlaced) {
         // comme on doit enlever les pions bien placés, on initialise nbPresent à - nbWellPlaced

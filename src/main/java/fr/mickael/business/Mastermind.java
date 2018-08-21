@@ -1,6 +1,6 @@
 package main.java.fr.mickael.business;
 
-import main.java.fr.mickael.util.Config;
+import main.java.fr.mickael.util.Util;
 
 import java.util.Arrays;
 
@@ -48,7 +48,7 @@ public class Mastermind extends Game{
             }
         }
         // calcul des présents
-        int nbPresent = Config.getNbPresent(guessCode, secretCode, nbWellPlaced);
+        int nbPresent = Util.getNbPresent(guessCode, secretCode, nbWellPlaced);
         strB.append(nbWellPlaced + " Bien placés " + nbPresent + " Présents");
         return strB.toString();
     }

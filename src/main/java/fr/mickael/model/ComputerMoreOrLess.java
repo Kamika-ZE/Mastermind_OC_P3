@@ -1,10 +1,11 @@
 package main.java.fr.mickael.model;
 
-import static main.java.fr.mickael.util.Config.*;
+import main.java.fr.mickael.util.Config;
 
 public class ComputerMoreOrLess extends Computer {
 
     private int[][] ecart;
+    private int codeLength = Config.getCodeLength();
 
     public ComputerMoreOrLess() {
         super.computerSecretCode = new int[codeLength];

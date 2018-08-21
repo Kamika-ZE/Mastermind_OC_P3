@@ -1,11 +1,14 @@
 package main.java.fr.mickael.model;
 
+import main.java.fr.mickael.util.Config;
+
 import java.util.Random;
-import static main.java.fr.mickael.util.Config.*;
 
 public abstract class Computer implements Player{
 
     protected int[] computerSecretCode;
+    protected int codeLength = Config.getCodeLength();
+    protected int nbDigit = Config.getNbDigit();
 
     public Computer() {
         this.computerSecretCode = new int[codeLength];

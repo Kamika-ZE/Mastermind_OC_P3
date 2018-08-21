@@ -1,22 +1,25 @@
 package main.java.fr.mickael.business;
 
+import main.java.fr.mickael.util.Config;
+
 import java.util.Arrays;
 
-import static main.java.fr.mickael.util.Config.codeLength;
-import static main.java.fr.mickael.util.Config.maxRound;
-
 public class MoreOrLess extends Game{
+
+    private int codeLength = Config.getCodeLength();
+    private int maxRound = Config.getMaxRound();
 
     @Override
     public void play() {
         int round = 0;
         boolean asWon = false;
-        int[] secretCode = new int[codeLength];
-        int[] guessCode = new int[codeLength];
+        int[] secretCode;
+        int[] guessCode;
         String compareCode = "";
 
         secretCode = defender.generateSecretCode();
-        while(!asWon && round < maxRound) {
+
+        while(!asWon && (round < maxRound)) {
             round++;
             System.out.println("tapez le code secret");
             guessCode = attacker.guessTheCode();
@@ -33,7 +36,7 @@ public class MoreOrLess extends Game{
     @Override
     public String compareCode(int[] guessCode, int[] secretCode) {
         StringBuffer strB = new StringBuffer();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < codeLength; i++) {
             if (guessCode[i] == secretCode[i]) {
                 strB.append("=");
             } else if (guessCode[i] < secretCode[i]) {

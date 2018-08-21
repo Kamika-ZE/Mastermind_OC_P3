@@ -1,24 +1,26 @@
 package main.java.fr.mickael.business;
 
+import main.java.fr.mickael.util.Config;
 import main.java.fr.mickael.util.Util;
 
 import java.util.Arrays;
 
-import static main.java.fr.mickael.util.Config.codeLength;
-import static main.java.fr.mickael.util.Config.maxRound;
-
 public class Mastermind extends Game{
+
+    private int codeLength = Config.getCodeLength();
+    private int maxRound = Config.getMaxRound();
 
     @Override
     public void play() {
         int round = 0;
         boolean asWon = false;
-        int[] secretCode = new int[codeLength];
-        int[] guessCode = new int[codeLength];
+        int[] secretCode;
+        int[] guessCode;
         String compareCode = "";
 
         secretCode = defender.generateSecretCode();
-        while(!asWon && round < maxRound) {
+
+        while(!asWon && (round < maxRound)) {
             round++;
             System.out.println("tapez le code secret au round " + round);
             guessCode = attacker.guessTheCode();

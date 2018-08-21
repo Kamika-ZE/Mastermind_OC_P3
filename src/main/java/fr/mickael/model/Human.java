@@ -1,12 +1,14 @@
 package main.java.fr.mickael.model;
 
-import static main.java.fr.mickael.util.Config.codeLength;
+import main.java.fr.mickael.util.Config;
+
 import java.util.Scanner;
 
 public class Human implements Player{
 
     private Scanner sc = new Scanner(System.in);
     private int[] humanCode;
+    private int codeLength = Config.getCodeLength();
 
     public Human() {
         this.humanCode = new int[codeLength];

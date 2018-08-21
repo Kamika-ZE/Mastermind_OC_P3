@@ -2,11 +2,12 @@ package main.java.fr.mickael.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import static main.java.fr.mickael.util.Config.*;
 
 public class AllPossibleCode {
 
     private List<int[]> allCode;
+    private int codeLength = Config.getCodeLength();
+    private int nbDigit = Config.getNbDigit();
     private int[] code = new int[codeLength];
 
 

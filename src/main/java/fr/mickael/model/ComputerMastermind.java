@@ -1,6 +1,7 @@
 package main.java.fr.mickael.model;
 
 import main.java.fr.mickael.util.AllPossibleCode;
+import main.java.fr.mickael.util.Config;
 import main.java.fr.mickael.util.Util;
 
 import java.util.ArrayList;
@@ -9,14 +10,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static main.java.fr.mickael.util.Config.codeIndex;
-import static main.java.fr.mickael.util.Config.codeLength;
-
 public class ComputerMastermind extends Computer{
 
     private int[] computerGuessCode;
     private List<int[]> allPossibilities;
     private List<Integer> allPossibleScore;
+    private int codeLength = Config.getCodeLength();
+    private int codeIndex = Config.getCodeIndex();
 
 
     public ComputerMastermind() {
@@ -24,10 +24,6 @@ public class ComputerMastermind extends Computer{
         this.computerGuessCode = new int[codeLength];
         this.allPossibilities = generateAllPossibilities();
         this.allPossibleScore = generateAllPossibleScore();
-    }
-
-    public List<int[]> getAllPossibilities() {
-        return allPossibilities;
     }
 
     @Override

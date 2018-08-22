@@ -6,6 +6,7 @@ import main.java.fr.mickael.model.Human;
 
 public class GameFactory {
 
+
     public static Game createMoreOrLessHumanAttackerVsComputerDefender(){
         Game game = new MoreOrLess();
         game.setPlayers(new Human(), new ComputerMoreOrLess());

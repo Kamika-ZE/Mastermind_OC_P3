@@ -21,6 +21,7 @@ public class Config {
     private static int nbDigit1 = 0;
     private static int codeIndex1 = 0;
 
+
     public static int getCodeLength() {
         loadingProperties();
         codeLength1 = Integer.parseInt((properties.getProperty("codeLength")));

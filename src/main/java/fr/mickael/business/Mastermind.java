@@ -2,10 +2,14 @@ package main.java.fr.mickael.business;
 
 import main.java.fr.mickael.util.Config;
 import main.java.fr.mickael.util.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
 public class Mastermind extends Game{
+
+    private static Logger logger = LogManager.getLogger();
 
     private int codeLength = Config.getCodeLength();
     private int maxRound = Config.getMaxRound();

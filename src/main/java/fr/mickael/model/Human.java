@@ -7,11 +7,13 @@ import java.util.Scanner;
 public class Human implements Player{
 
     private Scanner sc = new Scanner(System.in);
-    private int[] humanCode;
+    private int[] humanSecretCode;
+    private int[] humanGuessCode;
     private int codeLength = Config.getCodeLength();
 
     public Human() {
-        this.humanCode = new int[codeLength];
+        this.humanSecretCode = new int[codeLength];
+        this.humanGuessCode = new int[codeLength];
     }
 
     @Override
@@ -22,7 +24,7 @@ public class Human implements Player{
 
     @Override
     public int[] guessTheCode() {
-        return getSecretCode();
+        return getGuessCode();
     }
 
     @Override
@@ -40,11 +42,17 @@ public class Human implements Player{
     }
 
     private int[] getSecretCode() {
-        //int[] humanSecretCode = new int[codeLength];
         String str = sc.nextLine();
         for (int i = 0; i < codeLength; i++){
-            humanCode[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
+            humanSecretCode[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
         }
-        return humanCode;
+        return humanSecretCode;
+    }
+    private int[] getGuessCode() {
+        String str = sc.nextLine();
+        for (int i = 0; i < codeLength; i++){
+            humanGuessCode[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
+        }
+        return humanGuessCode;
     }
 }

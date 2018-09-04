@@ -2,17 +2,21 @@ package main.java.fr.mickael.business;
 
 import main.java.fr.mickael.util.Config;
 import main.java.fr.mickael.util.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
 public class MastermindDual extends Game {
 
+    private static Logger logger = LogManager.getLogger();
     private int codeLength = Config.getCodeLength();
     private int maxRound = Config.getMaxRound();
 
     @Override
     public void play() {
 
+        logger.debug("initialisation des variables");
         int round = 0;
         boolean asWon = false;
         int[] attackerSecretCode;

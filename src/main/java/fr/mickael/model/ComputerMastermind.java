@@ -35,7 +35,7 @@ public class ComputerMastermind extends Computer{
             allWeight.add(weight);
         }
         // poids mini
-        int weightMin = 10000;
+        int weightMin = Integer.MAX_VALUE;
         for (int i = 0; i < allWeight.size(); i++) {
             int weight = allWeight.get(i);
             if( weight < weightMin) {
@@ -52,6 +52,8 @@ public class ComputerMastermind extends Computer{
             }
         }
         computerGuessCode = allTabMinWeight.get(0);
+        allWeight.clear();
+        allTabMinWeight.clear();
         return computerGuessCode;
     }
 

@@ -6,7 +6,12 @@ import main.java.fr.mickael.model.Human;
 
 public class GameFactory {
 
-    public static Game createModeDualMastermind(){
+    public static Game createModeDualMastermindHumanVsComputer(){
+        Game game = new MastermindDual();
+        game.setPlayers(new Human(), new ComputerMastermind());
+        return game;
+    }
+    public static Game createModeDualMastermindHumanVsHuman(){
         Game game = new MastermindDual();
         game.setPlayers(new Human(), new Human());
         return game;

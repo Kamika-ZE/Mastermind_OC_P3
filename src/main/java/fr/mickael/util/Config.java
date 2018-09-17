@@ -12,7 +12,7 @@ public class Config {
     public static int maxRound = 10;
     public static int codeIndex = 0;*/
 
-    private final static String CONFIG_FILE = "./src/main/resources/fr/mickael/config/config.properties";
+    private final static String CONFIG_FILE = "./src/main/resources/config/config.properties";
 
     private static Properties properties = new Properties();
 
@@ -20,28 +20,26 @@ public class Config {
     private static int maxRound1 = 0;
     private static int nbDigit1 = 0;
     private static int codeIndex1 = 0;
-
+    static {
+        loadingProperties();
+    }
 
     public static int getCodeLength() {
-        loadingProperties();
         codeLength1 = Integer.parseInt((properties.getProperty("codeLength")));
         return codeLength1;
     }
 
     public static int getMaxRound() {
-        loadingProperties();
         maxRound1 = Integer.parseInt((properties.getProperty("maxRound")));
         return maxRound1;
     }
 
     public static int getNbDigit() {
-        loadingProperties();
         nbDigit1 = Integer.parseInt((properties.getProperty("nbDigit")));
         return nbDigit1;
     }
 
     public static int getCodeIndex() {
-        loadingProperties();
         codeIndex1 = Integer.parseInt((properties.getProperty("codeIndex")));
         return codeIndex1;
     }

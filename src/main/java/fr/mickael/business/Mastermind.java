@@ -16,6 +16,7 @@ public class Mastermind extends Game{
 
     @Override
     public void play() {
+        logger.debug("coucou");
         int round = 0;
         boolean asWon = false;
         int[] secretCode;
@@ -35,12 +36,7 @@ public class Mastermind extends Game{
                 attacker.getClues(compareCode.toCharArray());
             }
         }
-        if (asWon) {
-            attacker.getClues(compareCode.toCharArray());
-            attacker.sendScore(true);
-        } else {
-            attacker.sendScore(false);
-        }
+        attacker.sendScore(asWon);
     }
 
     @Override

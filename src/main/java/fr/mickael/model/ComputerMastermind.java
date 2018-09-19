@@ -1,16 +1,16 @@
 package main.java.fr.mickael.model;
 
-import main.java.fr.mickael.util.AllPossibleCode;
+import javafx.util.Pair;
 import main.java.fr.mickael.util.Config;
 import main.java.fr.mickael.util.Util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class ComputerMastermind extends Computer{
+public class ComputerMastermind extends Computer {
 
     private int[] computerGuessCode;
     private List<int[]> allPossibilities;
@@ -22,38 +22,72 @@ public class ComputerMastermind extends Computer{
     public ComputerMastermind() {
         super.computerSecretCode = new int[codeLength];
         this.computerGuessCode = new int[codeLength];
-        this.allPossibilities = generateAllPossibilities();
+        this.allPossibilities = new ArrayList<>();
         this.allPossibleScore = generateAllPossibleScore();
     }
 
     @Override
     public int[] guessTheCode() {
         // tous les poids
-        List<Integer> allWeight = new ArrayList<>();
+/*        List<Integer> allWeight = new ArrayList<>();
         for (int i = 0; i < allPossibilities.size(); i++) {
             int weight = getPropositionWeight(allPossibilities.get(i));
             allWeight.add(weight);
+        }*/
+        if (allPossibilities.isEmpty()) {
+/*            Optional<Pair<int[], Integer>> min = generateAllPossibilities()
+                    .map(code -> new Pair<>(code, getPropositionWeight(code)))
+                    .sorted(new Comparator<Pair<int[], Integer>>() {
+                        @Override
+                        public int compare(Pair<int[], Integer> o1, Pair<int[], Integer> o2) {
+
+                            return Integer.compare(o1.getValue(), o2.getValue());
+                        }})
+                    .min(new Comparator<Pair<int[], Integer>>() {
+                        @Override
+                        public int compare(Pair<int[], Integer> o1, Pair<int[], Integer> o2) {
+
+                            return Integer.compare(o1.getValue(), o2.getValue());
+                        }
+                    });
+            computerGuessCode = min.get().getKey();*/
+            Optional<Pair<int[], Integer>> min = generateAllPossibilities()
+                    .map(code -> new Pair<>(code, getPropositionWeight(code)))
+                    .sorted(Comparator.comparing(Pair::getValue))
+                    .min(Comparator.comparing(Pair::getValue));
+            computerGuessCode = min.get().getKey().clone();
+            System.out.println(Arrays.toString(computerGuessCode));
+            System.out.println(min.get().getValue());
+        } else {
+            Optional<Pair<int[], Integer>> min = allPossibilities.parallelStream()
+                    .map(code -> new Pair<>(code, getPropositionWeight(code)))
+                    .sorted(Comparator.comparing(Pair::getValue))
+                    .min(Comparator.comparing(Pair::getValue));
+            computerGuessCode = min.get().getKey();
+            System.out.println(Arrays.toString(computerGuessCode));
+
         }
+
         // poids mini
-        int weightMin = Integer.MAX_VALUE;
+        //int weightMin = Collections.min(allWeight);
+/*        int weightMin = Integer.MAX_VALUE;
         for (int i = 0; i < allWeight.size(); i++) {
             int weight = allWeight.get(i);
             if( weight < weightMin) {
                 weightMin = weight;
             }
-        }
-        System.out.println(weightMin);
+        }*/
+        //System.out.println(weightMin);
         // premier code avec poids mini
-        List<int[]> allTabMinWeight = new ArrayList<>();
+/*        List<int[]> allTabMinWeight = new ArrayList<>();
         for (int i = 0; i < allPossibilities.size(); i++) {
             int weightProp = getPropositionWeight(allPossibilities.get(i));
             if (weightProp == weightMin) {
                 allTabMinWeight.add(allPossibilities.get(i));
             }
         }
-        computerGuessCode = allTabMinWeight.get(0);
-        allWeight.clear();
-        allTabMinWeight.clear();
+        computerGuessCode = allTabMinWeight.get(0);*/
+        //computerGuessCode = allPossibilities.get(allWeight.indexOf(weightMin));
         return computerGuessCode;
     }
 
@@ -70,23 +104,42 @@ public class ComputerMastermind extends Computer{
             scoreString += matcher.group(0);
         }
         int score = Integer.parseInt(scoreString);
-        List<int[]> tempPossibilities = new ArrayList<>();
+/*        List<int[]> tempPossibilities = new ArrayList<>();
         for (int i = 0; i < allPossibilities.size(); i++) {
             int scoreTemp = getScoreGuessCode(allPossibilities.get(i), computerGuessCode);
             if (scoreTemp == score) {
                 tempPossibilities.add(allPossibilities.get(i));
             }
+        }*/
+        if (allPossibilities.isEmpty()){
+            allPossibilities = generateAllPossibilities()
+                    .filter(code -> getScoreGuessCode(code, computerGuessCode) == score)
+                    .collect(Collectors.toList());
+        } else {
+            allPossibilities = allPossibilities.parallelStream()
+                    .filter(code -> getScoreGuessCode(code, computerGuessCode) == score)
+                    .collect(Collectors.toList());
         }
-        allPossibilities = tempPossibilities;
+
     }
 
-    private List<int[]> generateAllPossibilities() {
+    private Stream<int[]> generateAllPossibilities() {
+        int nbCombMax = (int) Math.pow((double) nbDigit, (double) codeLength);
+        return Stream.iterate(0, i -> i + 1)
+                .map(i -> i.toString())
+                .map(nb -> {
+                    int[] comb = new int[codeLength];
+                    for (int j = (nb.length() - 1); j >= 0; j--) {
+                        comb[j + (codeLength - nb.length())] = Integer.parseInt(String.valueOf(nb.charAt(j)));
+                    }
+                    return comb;
+                })
+                .limit(nbCombMax);
 
-        List<int[]> allPossibilities = new ArrayList<>();
+/*        List<int[]> allPossibilities = new ArrayList<>();
         AllPossibleCode allPossibleCode = new AllPossibleCode();
         allPossibleCode.generateAllCode(codeIndex);
-        allPossibilities = allPossibleCode.getAllCode();
-        return allPossibilities;
+        allPossibilities = allPossibleCode.getAllCode();*/
     }
 
     private List<Integer> generateAllPossibleScore() {
@@ -121,8 +174,8 @@ public class ComputerMastermind extends Computer{
         int nbWellPlaced = 0;
 
         // calcul des bien placés
-        for (int i = 0; i < codeLength; i++){
-            if (guessCode[i] == secretCode[i]){
+        for (int i = 0; i < codeLength; i++) {
+            if (guessCode[i] == secretCode[i]) {
                 nbWellPlaced++;
             }
         }
@@ -135,9 +188,8 @@ public class ComputerMastermind extends Computer{
         return scoreGuessCode;
     }
 
-
-
-    private int getPropositionWeight (int[] array) {
+    //a modifier
+    private int getPropositionWeight(int[] array) {
         int[] scoreTab = new int[allPossibleScore.size()];
         int weightProp = 0;
         for (int i = 0; i < allPossibilities.size(); i++) {

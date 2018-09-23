@@ -56,6 +56,6 @@ public class Mastermind extends Game{
     }
 
     private static boolean isAsWon(String strB) {
-        return strB.equals("4 Bien placés 0 Présents");
+        return strB.equals(Config.getCodeLength()+ " Bien placés 0 Présents");
     }
 }

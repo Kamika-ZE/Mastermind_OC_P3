@@ -35,37 +35,25 @@ public class ComputerMastermind extends Computer {
             allWeight.add(weight);
         }*/
         if (allPossibilities.isEmpty()) {
+            int[] codeTemp = new int[codeLength];
+            for (int i = 0; i < codeLength; i++) {
+                codeTemp[i] = i;
+            }
+            computerGuessCode = codeTemp;
+
 /*            Optional<Pair<int[], Integer>> min = generateAllPossibilities()
-                    .map(code -> new Pair<>(code, getPropositionWeight(code)))
-                    .sorted(new Comparator<Pair<int[], Integer>>() {
-                        @Override
-                        public int compare(Pair<int[], Integer> o1, Pair<int[], Integer> o2) {
-
-                            return Integer.compare(o1.getValue(), o2.getValue());
-                        }})
-                    .min(new Comparator<Pair<int[], Integer>>() {
-                        @Override
-                        public int compare(Pair<int[], Integer> o1, Pair<int[], Integer> o2) {
-
-                            return Integer.compare(o1.getValue(), o2.getValue());
-                        }
-                    });
-            computerGuessCode = min.get().getKey();*/
-            Optional<Pair<int[], Integer>> min = generateAllPossibilities()
                     .map(code -> new Pair<>(code, getPropositionWeight(code)))
                     .sorted(Comparator.comparing(Pair::getValue))
                     .min(Comparator.comparing(Pair::getValue));
             computerGuessCode = min.get().getKey().clone();
             System.out.println(Arrays.toString(computerGuessCode));
-            System.out.println(min.get().getValue());
+            System.out.println(min.get().getValue());*/
         } else {
             Optional<Pair<int[], Integer>> min = allPossibilities.parallelStream()
                     .map(code -> new Pair<>(code, getPropositionWeight(code)))
                     .sorted(Comparator.comparing(Pair::getValue))
                     .min(Comparator.comparing(Pair::getValue));
             computerGuessCode = min.get().getKey();
-            System.out.println(Arrays.toString(computerGuessCode));
-
         }
 
         // poids mini
@@ -111,7 +99,7 @@ public class ComputerMastermind extends Computer {
                 tempPossibilities.add(allPossibilities.get(i));
             }
         }*/
-        if (allPossibilities.isEmpty()){
+        if (allPossibilities.isEmpty()) {
             allPossibilities = generateAllPossibilities()
                     .filter(code -> getScoreGuessCode(code, computerGuessCode) == score)
                     .collect(Collectors.toList());

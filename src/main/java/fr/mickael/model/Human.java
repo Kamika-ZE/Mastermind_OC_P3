@@ -18,7 +18,7 @@ public class Human implements Player{
 
     @Override
     public int[] generateSecretCode() {
-        System.out.println("Tapez un code à " + codeLength + " chiffres compris entre 0 et " + Config.getNbDigit() + " puis validez par ENTREE");
+        System.out.println("Tapez un code à " + codeLength + " chiffres compris entre 0 et " + (Config.getNbDigit() - 1) + " puis validez par ENTREE");
         return getSecretCode();
     }
 

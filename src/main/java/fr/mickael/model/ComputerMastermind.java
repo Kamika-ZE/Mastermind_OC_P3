@@ -37,7 +37,7 @@ public class ComputerMastermind extends Computer {
         if (allPossibilities.isEmpty()) {
             int[] codeTemp = new int[codeLength];
             for (int i = 0; i < codeLength; i++) {
-                codeTemp[i] = i;
+                codeTemp[i] = i % nbDigit;
             }
             computerGuessCode = codeTemp;
 
@@ -113,8 +113,17 @@ public class ComputerMastermind extends Computer {
 
     private Stream<int[]> generateAllPossibilities() {
         int nbCombMax = (int) Math.pow((double) nbDigit, (double) codeLength);
-        return Stream.iterate(0, i -> i + 1)
+        return Stream.iterate(0, i -> i + 1).parallel()
                 .map(i -> i.toString())
+                .filter(s -> {
+                    for (char c : s.toCharArray()){
+                       if(Character.getNumericValue(c) < nbDigit){
+                           continue;
+                       }
+                       return false;
+                    }
+                    return true;
+                }).limit(nbCombMax - 1)
                 .map(nb -> {
                     int[] comb = new int[codeLength];
                     for (int j = (nb.length() - 1); j >= 0; j--) {
@@ -122,7 +131,7 @@ public class ComputerMastermind extends Computer {
                     }
                     return comb;
                 })
-                .limit(nbCombMax);
+                ;
 
 /*        List<int[]> allPossibilities = new ArrayList<>();
         AllPossibleCode allPossibleCode = new AllPossibleCode();

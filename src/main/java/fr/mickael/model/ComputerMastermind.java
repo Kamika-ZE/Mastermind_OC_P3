@@ -123,7 +123,7 @@ public class ComputerMastermind extends Computer {
                        return false;
                     }
                     return true;
-                }).limit(nbCombMax - 1)
+                }).limit(nbCombMax)
                 .map(nb -> {
                     int[] comb = new int[codeLength];
                     for (int j = (nb.length() - 1); j >= 0; j--) {

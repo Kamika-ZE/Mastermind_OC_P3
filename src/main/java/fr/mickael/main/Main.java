@@ -6,7 +6,7 @@ import main.java.fr.mickael.business.GameFactory;
 public class Main {
 
     public static void main(String[] args) {
-        Game game = GameFactory.createMastermindComputerAttackerVsHumanDefender();
+        Game game = GameFactory.createMastermindHumanAttackerVsComputerDefender();
         game.play();
 
     }

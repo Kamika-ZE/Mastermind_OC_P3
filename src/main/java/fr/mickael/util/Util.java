@@ -27,4 +27,6 @@ public class Util {
         }
         return nbPresent;
     }
+
+    public static final String SEPARATOR = "\n\n********************  %s  **********************\n\n";
 }

@@ -1,13 +1,13 @@
 package main.java.fr.mickael.main;
 
-import main.java.fr.mickael.business.Game;
-import main.java.fr.mickael.business.GameFactory;
+import main.java.fr.mickael.controller.MainController;
 
 public class Main {
 
     public static void main(String[] args) {
-        Game game = GameFactory.createMastermindHumanAttackerVsComputerDefender();
-        game.play();
+
+        MainController.getInstance().run();
+
 
     }
 }

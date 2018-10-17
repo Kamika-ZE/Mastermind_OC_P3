@@ -11,24 +11,37 @@ public class GameChoice implements View {
     public void display() {
         System.out.println("CHOOSE YOUR GAME :\n\n"
                 + "\t1/\tMORE OR LESS\n"
-                + "\t2/\tMASTERMIND\n\n");
+                + "\t2/\tMASTERMIND\n\n"
+                + "Your answer : \r");
+
     }
 
     @Override
     public String getInput() {
         Scanner scanner = new Scanner(System.in);
         String firstChoice = "";
-        char reponse;
-        System.out.println("Your answer : \r");
-        reponse = scanner.nextLine().charAt(0);
-        switch (reponse) {
-            case '1':
-                firstChoice = "1";
-                break;
-            case '2':
-                firstChoice = "2";
-                break;
+        boolean isValid = false;
+        while (isValid != true) {
+            try {
+                char reponse = scanner.nextLine().charAt(0);
+                switch (reponse) {
+                    case '1':
+                        firstChoice = "1";
+                        isValid = true;
+                        break;
+                    case '2':
+                        firstChoice = "2";
+                        isValid = true;
+                        break;
+                }
+
+            } catch (Exception e) {	}
+            if(!isValid) {
+                System.out.println("Please, choose between 1/ or 2/\n");
+                display();
+            }
         }
+        //scanner.close();
         return firstChoice;
     }
 }

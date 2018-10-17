@@ -120,12 +120,16 @@ public class MainController {
             case "1":
                 executeAction(State.IN_GAME);
                 break;
-
             case "2":
                 executeAction(State.GAME_CHOICE);
                 break;
 
             case "3":
+                gameChoiceNumber.delete(1, 2);
+                executeAction(State.MODE_CHOICE);
+                break;
+
+            case "4":
                 System.out.println("Good bye");
                 break;
         }

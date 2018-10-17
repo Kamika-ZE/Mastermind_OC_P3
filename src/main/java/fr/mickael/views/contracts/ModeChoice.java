@@ -10,28 +10,42 @@ public class ModeChoice implements View {
         System.out.println("CHOOSE YOUR MODE :\n\n"
                 + "\t1/\tCHALLENGER\n"
                 + "\t2/\tDEFENDER\n"
-                + "\t3/\tDUAL\n\n");
-
+                + "\t3/\tDUAL\n\n"
+                + "Your answer : \r");
     }
 
     @Override
     public String getInput() {
         Scanner scanner = new Scanner(System.in);
         String secondChoice = "";
-        char reponse;
-        System.out.println("Your answer : \r");
-        reponse = scanner.nextLine().charAt(0);
-        switch (reponse) {
-            case '1':
-                secondChoice = "1";
-                break;
-            case '2':
-                secondChoice = "2";
-                break;
-            case '3':
-                secondChoice = "3";
-                break;
+        boolean isValid = false;
+        while (isValid != true) {
+            try {
+                char reponse = scanner.nextLine().charAt(0);
+                switch (reponse) {
+                    case '1':
+                        secondChoice = "1";
+                        isValid = true;
+                        break;
+                    case '2':
+                        secondChoice = "2";
+                        isValid = true;
+                        break;
+                    case '3':
+                        secondChoice = "3";
+                        isValid = true;
+                        break;
+                }
+            } catch (Exception e) {
+                e.getMessage();
+            }
+            if(!isValid) {
+                System.out.println("Please, choose between 1/, 2/ or 3/\n");
+                display();
+            }
         }
+        //scanner.close();
         return secondChoice;
     }
 }
+

@@ -2,7 +2,7 @@ package main.java.fr.mickael.model;
 
 import javafx.util.Pair;
 import main.java.fr.mickael.util.Config;
-import main.java.fr.mickael.util.Util;
+import main.java.fr.mickael.util.Constants;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -179,7 +179,7 @@ public class ComputerMastermind extends Computer {
 
         // calcul des présents
 
-        int nbPresent = Util.getNbPresent(guessCode, secretCode, nbWellPlaced);
+        int nbPresent = Constants.getNbPresent(guessCode, secretCode, nbWellPlaced);
         scoreGuessCode = 10 * nbWellPlaced + nbPresent;
 
         return scoreGuessCode;

@@ -17,7 +17,6 @@ public abstract class Computer implements Player{
 
     @Override
     public int[] generateSecretCode() {
-        System.out.println("Le code secret a été défini !");
         return getSecretCode();
     }
 
@@ -30,9 +29,9 @@ public abstract class Computer implements Player{
     @Override
     public void sendScore(boolean win) {
         if (win){
-            System.out.println("BRAVO ! Vous avez gagné !");
+            System.out.println("YOU ARE LUCKY ! THE COMPUTER HAS LOST !");
         } else {
-            System.out.println("DOMMAGE ! Vous avez perdu !");
+            System.out.println("OH MY GOD ! THE COMPUTER HAS WIN !");
         }
     }
 

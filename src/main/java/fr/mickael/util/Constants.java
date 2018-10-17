@@ -1,6 +1,6 @@
 package main.java.fr.mickael.util;
 
-public class Util {
+public class Constants {
 
     private static int nbDigit = Config.getNbDigit();
     private static int codeLength = Config.getCodeLength();

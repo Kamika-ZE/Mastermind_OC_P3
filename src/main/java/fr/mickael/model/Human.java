@@ -19,9 +19,20 @@ public class Human implements Player{
 
     @Override
     public int[] generateSecretCode() {
-        System.out.println("Tapez un code à " + codeLength +
-                " chiffres compris entre 0 et " + (Config.getNbDigit() - 1) + " puis validez par ENTREE");
-        return getSecretCode();
+        int[] secretCode = null;
+        while (secretCode == null){
+            System.out.println("Enter a secret code of size " + codeLength + ".\n"
+                    + "The numbers must be between 0 et " + (Config.getNbDigit() - 1 + "\n")
+                    + "Press ENTER to validate\n");
+            try {
+                secretCode = getSecretCode();
+            } catch (CodeLengthException e) {
+                System.out.println(e.getLocalizedMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("Be careful. Use number only please.\n");
+            }
+        }
+        return secretCode;
 }
 
     @Override
@@ -33,7 +44,7 @@ public class Human implements Player{
             } catch (CodeLengthException e) {
                 System.out.println(e.getLocalizedMessage());
             } catch (NumberFormatException e) {
-                System.out.println("Attention il faut utiliser des chiffres !");
+                System.out.println("Be careful. Use number only please.");
             }
         }
         return guessCode;
@@ -47,14 +58,18 @@ public class Human implements Player{
     @Override
     public void sendScore(boolean win) {
         if (win){
-            System.out.println("BRAVO ! Vous avez gagné !");
+            System.out.println("CONGRATULATIONS ! YOU WIN !");
         } else {
-            System.out.println("DOMMAGE ! Vous avez perdu !");
+            System.out.println("TOO BAD ! YOU LOSE !");
         }
     }
 
-    private int[] getSecretCode() {
+    private int[] getSecretCode() throws CodeLengthException {
         String str = sc.nextLine();
+        if (str.length() != codeLength){
+            throw new CodeLengthException("Be careful ! The code size is "
+                    + Config.getCodeLength() + " !");
+        }
         for (int i = 0; i < codeLength; i++){
             humanSecretCode[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
         }
@@ -63,7 +78,7 @@ public class Human implements Player{
     private int[] getGuessCode() throws CodeLengthException {
         String str = sc.nextLine();
         if (str.length() != codeLength){
-            throw new CodeLengthException("Il manque des chiffres. La taille du code est "
+            throw new CodeLengthException("Be careful ! The code size is "
                     + Config.getCodeLength() + " !");
         }
         for (int i = 0; i < codeLength; i++){

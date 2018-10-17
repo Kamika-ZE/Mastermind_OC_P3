@@ -1,11 +1,12 @@
 package main.java.fr.mickael.business;
 
 import main.java.fr.mickael.util.Config;
-import main.java.fr.mickael.util.Util;
+import main.java.fr.mickael.util.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Mastermind extends Game{
 
@@ -16,20 +17,42 @@ public class Mastermind extends Game{
 
     @Override
     public void play() {
-        logger.debug("coucou");
+        logger.debug("play");
         int round = 0;
         boolean asWon = false;
         int[] secretCode;
         int[] guessCode;
         String compareCode = "";
 
+        System.out.println("MASTERMIND\n"
+                + String.join("*", Collections.nCopies(30, "*")) + "\n");
+        if (defender.getClass().getSimpleName().equals("Human")){
+            System.out.println("MODE : DEFENDER\n"
+                    + "The computer have " + maxRound + " round to find your code.\n"
+                    + "Make it suffer !\n");
+        } else {
+            System.out.println("MODE : CHALLENGER\n"
+                    + "You have " + maxRound + " round to find the computer code.\n"
+                    + "Use your brain !\n");
+        }
+
         secretCode = defender.generateSecretCode();
+        if (!defender.getClass().getSimpleName().equals("Human")) {
+            System.out.println("The computer's secret code has been defined !\n");
+        }
 
         while(!asWon && (round < maxRound)) {
             round++;
-            System.out.println("tapez le code secret au round " + round);
-            guessCode = attacker.guessTheCode();
-            System.out.println("Le joueur a joué " + Arrays.toString(guessCode));
+            System.out.println(String.join("*", Collections.nCopies(30, "*")) + "\n"
+                    + "ROUND : " + round);
+            if(attacker.getClass().getSimpleName().equals("Human")) {
+                System.out.println("Enter your code\r");
+                guessCode = attacker.guessTheCode();
+                System.out.println("You play " + Arrays.toString(guessCode) + "\n\n");
+            } else {
+                guessCode = attacker.guessTheCode();
+                System.out.println("The computer play " + Arrays.toString(guessCode) + "\n\n");
+            }
             compareCode = compareCode(guessCode, secretCode);
             asWon = isAsWon(compareCode);
             if (!asWon) {
@@ -37,6 +60,8 @@ public class Mastermind extends Game{
             }
         }
         attacker.sendScore(asWon);
+        System.out.println("The secret code was : " + Arrays.toString(secretCode) + "\n"
+                + String.join("#", Collections.nCopies(30, "#")) + "\n");
     }
 
     @Override
@@ -50,12 +75,12 @@ public class Mastermind extends Game{
             }
         }
         // calcul des présents
-        int nbPresent = Util.getNbPresent(guessCode, secretCode, nbWellPlaced);
-        strB.append(nbWellPlaced + " Bien placés " + nbPresent + " Présents");
+        int nbPresent = Constants.getNbPresent(guessCode, secretCode, nbWellPlaced);
+        strB.append(nbWellPlaced + " Well placed " + nbPresent + " Present\n");
         return strB.toString();
     }
 
     private static boolean isAsWon(String strB) {
-        return strB.equals(Config.getCodeLength()+ " Bien placés 0 Présents");
+        return strB.equals(Config.getCodeLength()+ " Well placed | 0 Present\n");
     }
 }

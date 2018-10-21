@@ -4,15 +4,17 @@ package main.java.fr.mickael.views.contracts;
 
 import main.java.fr.mickael.views.View;
 
+import java.util.Collections;
 import java.util.Scanner;
 
 public class GameChoice implements View {
     @Override
     public void display() {
-        System.out.println("CHOOSE YOUR GAME :\n\n"
+        System.out.println("\n" + String.join("*", Collections.nCopies(40, "*"))
+                + "\n\nCHOOSE YOUR GAME :\n\n"
                 + "\t1/\tMORE OR LESS\n"
                 + "\t2/\tMASTERMIND\n\n"
-                + "Your answer : \r");
+                + "Your answer : \r\n");
 
     }
 

@@ -9,6 +9,7 @@ public class ComputerMoreOrLess extends Computer {
 
     public ComputerMoreOrLess() {
         super.computerSecretCode = new int[codeLength];
+        super.computerGuessCode = new int[codeLength];
         this.ecart = new int[codeLength][];
         for (int i = 0; i < ecart.length; i++){
             this.ecart[i] = new int[]{0, 10};
@@ -18,10 +19,10 @@ public class ComputerMoreOrLess extends Computer {
 
     @Override
     public int[] guessTheCode() {
-        for(int i = 0; i < computerSecretCode.length; i++){
-            computerSecretCode[i] = (ecart[i][0] + ecart[i][1])/2;
+        for(int i = 0; i < computerGuessCode.length; i++){
+            computerGuessCode[i] = (ecart[i][0] + ecart[i][1])/2;
         }
-        return computerSecretCode;
+        return computerGuessCode;
     }
     @Override
     public void getClues(char[] answer) {
@@ -29,9 +30,9 @@ public class ComputerMoreOrLess extends Computer {
 
         for (int i = 0; i < 4; i++) {
             if (answer[i] == '-') {
-                ecart[i][1] = computerSecretCode[i];
+                ecart[i][1] = computerGuessCode[i];
             } else if (answer[i] == '+') {
-                ecart[i][0] = computerSecretCode[i];
+                ecart[i][0] = computerGuessCode[i];
             }
         }
         System.out.println(answer);

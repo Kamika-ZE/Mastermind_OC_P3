@@ -7,11 +7,13 @@ import java.util.Random;
 public abstract class Computer implements Player{
 
     protected int[] computerSecretCode;
+    protected int[] computerGuessCode;
     protected int codeLength = Config.getCodeLength();
     protected int nbDigit = Config.getNbDigit();
 
     public Computer() {
         this.computerSecretCode = new int[codeLength];
+        this.computerGuessCode = new int[codeLength];
     }
 
 
@@ -29,9 +31,9 @@ public abstract class Computer implements Player{
     @Override
     public void sendScore(boolean win) {
         if (win){
-            System.out.println("YOU ARE LUCKY ! THE COMPUTER HAS LOST !");
+            System.out.println("\nYOU ARE LUCKY ! THE COMPUTER HAS LOST !\n");
         } else {
-            System.out.println("OH MY GOD ! THE COMPUTER HAS WIN !");
+            System.out.println("\nOH MY GOD ! THE COMPUTER HAS WON !\n");
         }
     }
 

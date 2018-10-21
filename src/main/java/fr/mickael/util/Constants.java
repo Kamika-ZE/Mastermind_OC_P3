@@ -1,5 +1,7 @@
 package main.java.fr.mickael.util;
 
+import java.util.Collections;
+
 public class Constants {
 
     private static int nbDigit = Config.getNbDigit();
@@ -28,5 +30,6 @@ public class Constants {
         return nbPresent;
     }
 
-    public static final String SEPARATOR = "\n\n********************  %s  **********************\n\n";
+    public static final String SEPARATOR = "\n\n" + String.join("*", Collections.nCopies(15, "*"))
+            +  "  %s  " + String.join("*", Collections.nCopies(15, "*")) + "\n\n";
 }

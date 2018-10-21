@@ -2,16 +2,18 @@ package main.java.fr.mickael.views.contracts;
 
 import main.java.fr.mickael.views.View;
 
+import java.util.Collections;
 import java.util.Scanner;
 
 public class ModeChoice implements View {
     @Override
     public void display() {
-        System.out.println("CHOOSE YOUR MODE :\n\n"
+        System.out.println("\n" + String.join("*", Collections.nCopies(40, "*"))
+                + "\n\nCHOOSE YOUR MODE :\n\n"
                 + "\t1/\tCHALLENGER\n"
                 + "\t2/\tDEFENDER\n"
                 + "\t3/\tDUAL\n\n"
-                + "Your answer : \r");
+                + "Your answer : \r\n");
     }
 
     @Override

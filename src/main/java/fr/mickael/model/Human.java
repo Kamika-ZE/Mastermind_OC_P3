@@ -33,7 +33,7 @@ public class Human implements Player{
             }
         }
         return secretCode;
-}
+    }
 
     @Override
     public int[] guessTheCode() {
@@ -44,7 +44,7 @@ public class Human implements Player{
             } catch (CodeLengthException e) {
                 System.out.println(e.getLocalizedMessage());
             } catch (NumberFormatException e) {
-                System.out.println("Be careful. Use number only please.");
+                System.out.println("Be careful. Use number only please.\n");
             }
         }
         return guessCode;
@@ -58,9 +58,9 @@ public class Human implements Player{
     @Override
     public void sendScore(boolean win) {
         if (win){
-            System.out.println("CONGRATULATIONS ! YOU WIN !");
+            System.out.println("\nCONGRATULATIONS ! YOU WIN !\n");
         } else {
-            System.out.println("TOO BAD ! YOU LOSE !");
+            System.out.println("\nTOO BAD ! YOU LOSE !\n");
         }
     }
 
@@ -68,7 +68,7 @@ public class Human implements Player{
         String str = sc.nextLine();
         if (str.length() != codeLength){
             throw new CodeLengthException("Be careful ! The code size is "
-                    + Config.getCodeLength() + " !");
+                    + Config.getCodeLength() + " !\n");
         }
         for (int i = 0; i < codeLength; i++){
             humanSecretCode[i] = Integer.parseInt(String.valueOf(str.charAt(i)));
@@ -79,7 +79,7 @@ public class Human implements Player{
         String str = sc.nextLine();
         if (str.length() != codeLength){
             throw new CodeLengthException("Be careful ! The code size is "
-                    + Config.getCodeLength() + " !");
+                    + Config.getCodeLength() + " !\n");
         }
         for (int i = 0; i < codeLength; i++){
             humanGuessCode[i] = Integer.parseInt(String.valueOf(str.charAt(i)));

@@ -2,7 +2,8 @@ package main.java.fr.mickael.model;
 
 import javafx.util.Pair;
 import main.java.fr.mickael.util.Config;
-import main.java.fr.mickael.util.Constants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -12,12 +13,17 @@ import java.util.stream.Stream;
 
 public class ComputerMastermind extends Computer {
 
+    private static Logger logger = LogManager.getLogger();
     private List<int[]> allPossibilities;
     private List<Integer> allPossibleScore;
     private int codeLength = Config.getCodeLength();
-    private int codeIndex = Config.getCodeIndex();
+    private int nbDigit = Config.getNbDigit();
 
 
+    /**
+     * Constructor for the mastermind computer.
+     * Inherits the computer constructor
+     */
     public ComputerMastermind() {
         super.computerSecretCode = new int[codeLength];
         super.computerGuessCode = new int[codeLength];
@@ -25,6 +31,10 @@ public class ComputerMastermind extends Computer {
         this.allPossibleScore = generateAllPossibleScore();
     }
 
+    /**
+     * Method that return the computer guess code
+     * @return computerGuessCode
+     */
     @Override
     public int[] guessTheCode() {
         // tous les poids
@@ -45,6 +55,10 @@ public class ComputerMastermind extends Computer {
         return computerGuessCode;
     }
 
+    /**
+     * Method used to reduce the list of all the possible code
+     *
+     */
     @Override
     public void getClues(char[] answer) {
         StringBuffer strB = new StringBuffer();
@@ -71,6 +85,10 @@ public class ComputerMastermind extends Computer {
 
     }
 
+    /**
+     * Method used to generate a stream of integer array
+     * @return Stream<int[]>  a list of all possible code
+     */
     private Stream<int[]> generateAllPossibilities() {
         int nbCombMax = (int) Math.pow((double) nbDigit, (double) codeLength);
         return Stream.iterate(0, i -> i + 1).parallel()
@@ -90,22 +108,24 @@ public class ComputerMastermind extends Computer {
                         comb[j + (codeLength - nb.length())] = Integer.parseInt(String.valueOf(nb.charAt(j)));
                     }
                     return comb;
-                })
-                ;
+                });
     }
 
+    /**
+     * Method that find all the possible score
+     * @return allPossibleScore		a list of all possible score
+     */
     private List<Integer> generateAllPossibleScore() {
         List<Integer> allPossibleScore = new ArrayList<>();
-        // nombre de scores possibles
+        // Number of possible score
         int nbScore = 0;
-        // taille du groupe de score le plus petit (toujours 2). cette valeur varie jusqu'à codeLength + 1
+        // the minimal score length is always 2.
         int nbScoreGp = 2;
 
-        //boucle pour déterminer le nombre de scores possibles
+        //loop to determine the number of possible score.
         for (int i = 0; i < codeLength; i++) {
             nbScore += i + 2;
-            //on utilise la même boucle pour trouver toutes les valeurs des scores.
-            //On pourrait séparer le calcul du nombre de scores pour utiliser la valeur.
+            //using the same loop to find all the value of the possible score.
             for (int j = 0; j < nbScoreGp; j++) {
                 int scoreInd = 0;
                 if (nbScore == 2) {
@@ -121,26 +141,53 @@ public class ComputerMastermind extends Computer {
         return allPossibleScore;
     }
 
+    /**
+     * Method used to calculate the score of the current guess code.
+     * @param guessCode
+     * @param secretCode
+     * @return scoreGuessCode		the score of the guess code.
+     */
     private int getScoreGuessCode(int[] guessCode, int[] secretCode) {
         int scoreGuessCode = 0;
         int nbWellPlaced = 0;
 
-        // calcul des bien placés
+        // number of well placed number in the code
         for (int i = 0; i < codeLength; i++) {
             if (guessCode[i] == secretCode[i]) {
                 nbWellPlaced++;
             }
         }
 
-        // calcul des présents
-
-        int nbPresent = Constants.getNbPresent(guessCode, secretCode, nbWellPlaced);
+        // number of present number in the code
+        int nbPresent = - nbWellPlaced;
+        for (int i = 0; i < nbDigit; i++){
+            int presentSecretCode = 0;
+            int presentGuessCode = 0;
+            for (int j = 0; j < codeLength; j++){
+                if (secretCode[j] == i){
+                    presentSecretCode++;
+                }
+                if (guessCode[j] == i){
+                    presentGuessCode++;
+                }
+            }
+            if (presentSecretCode < presentGuessCode){
+                nbPresent = presentSecretCode + nbPresent;
+            } else {
+                nbPresent = presentGuessCode + nbPresent;
+            }
+        }
         scoreGuessCode = 10 * nbWellPlaced + nbPresent;
 
         return scoreGuessCode;
     }
 
-    //a modifier
+    //improve to find a generic formula
+    /**
+     * Method used to determine the 'weight' of a code.
+     * @param array		an code
+     * @return weightProp	the 'weight' of the code tested
+     */
     private int getPropositionWeight(int[] array) {
         int[] scoreTab = new int[allPossibleScore.size()];
         int weightProp = 0;

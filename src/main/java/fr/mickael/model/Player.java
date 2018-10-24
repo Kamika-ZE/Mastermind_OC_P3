@@ -2,15 +2,27 @@ package main.java.fr.mickael.model;
 
 public interface Player {
 
-    // generate an array of integer
+    /**
+     * Method that generate a secret code.
+     * @return an array of integer
+     */
     int[] generateSecretCode ();
 
-    //guess the secret code
+    /**
+     * Method that generate a guess code.
+     * @return an array of integer
+     */
     int[] guessTheCode ();
 
-    // display a char array for the clues
+    /**
+     * Method that handles the logic for the computer
+     * or print the clues for human player.
+     */
     void getClues (char[] answer);
 
-    // send the score to the human player
+    /**
+     * Method that tell the player if he win
+     * or not.
+     */
     void sendScore(boolean win);
 }

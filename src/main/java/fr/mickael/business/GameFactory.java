@@ -3,6 +3,8 @@ package main.java.fr.mickael.business;
 import main.java.fr.mickael.model.ComputerMastermind;
 import main.java.fr.mickael.model.ComputerMoreOrLess;
 import main.java.fr.mickael.model.Human;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * class using an implementation of factory pattern
@@ -11,7 +13,7 @@ import main.java.fr.mickael.model.Human;
  */
 
 public class GameFactory {
-
+    private static Logger logger = LogManager.getLogger();
 
     //--------------------- MORE OR LESS ---------------------
     /**
@@ -21,6 +23,7 @@ public class GameFactory {
      */
     public static Game createMoreOrLessHumanAttackerVsComputerDefender(){
         Game game = new MoreOrLess();
+        logger.info("Create an instance of More or Less with a human attacker and computer defender");
         game.setPlayers(new Human(), new ComputerMoreOrLess());
         return game;
     }
@@ -32,6 +35,7 @@ public class GameFactory {
      */
     public static Game createMoreOrLessComputerAttackerVsHumanDefender(){
         Game game = new MoreOrLess();
+        logger.info("Create an instance of More or Less with a computer attacker and human defender.");
         game.setPlayers(new ComputerMoreOrLess(), new Human());
         return game;
     }
@@ -45,6 +49,7 @@ public class GameFactory {
      */
     public static Game createModeDualMoreOrLessHumanVsComputer(){
         Game game = new MoreOrLessDual();
+        logger.info("Create an instance of More or Less dual mode.");
         game.setPlayers(new Human(), new ComputerMoreOrLess());
         return game;
     }
@@ -68,6 +73,7 @@ public class GameFactory {
      */
     public static Game createMastermindHumanAttackerVsComputerDefender(){
         Game game = new Mastermind();
+        logger.info("Create an instance of Mastermind with a human attacker and computer defender");
         game.setPlayers(new Human(), new ComputerMastermind());
         return game;
     }
@@ -79,6 +85,7 @@ public class GameFactory {
      */
     public static Game createMastermindComputerAttackerVsHumanDefender(){
         Game game = new Mastermind();
+        logger.info("Create an instance of Mastermind with a computer attacker and human defender");
         game.setPlayers(new ComputerMastermind(), new Human());
         return game;
     }
@@ -92,6 +99,7 @@ public class GameFactory {
      */
     public static Game createModeDualMastermindHumanVsComputer(){
         Game game = new MastermindDual();
+        logger.info("Create an instance of Mastermind dual mode.");
         game.setPlayers(new Human(), new ComputerMastermind());
         return game;
     }

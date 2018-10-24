@@ -1,26 +1,31 @@
 package main.java.fr.mickael.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class that contains the configuration of the game.
+ * @author M. COZ
+ *
+ */
 public class Config {
 
-    /*public static int nbDigit = 6; // nb chiffres utilisables mastermind
-    public static int codeLength = 4;
-    public static int maxRound = 10;
-    public static int codeIndex = 0;*/
 
+    private static Logger logger = LogManager.getLogger();
     private final static String CONFIG_FILE = "./src/main/resources/config/config.properties";
 
     private static Properties properties = new Properties();
 
-    private static int codeLength1 = 0;
-    private static int maxRound1 = 0;
-    private static int nbDigit1 = 0;
-    private static int codeIndex1 = 0;
-    private static boolean modeDev1 = false;
+    private static int codeLength = 0;
+    private static int maxRound = 0;
+    private static int nbDigit = 0;
+    private static int codeIndex = 0;
+    private static boolean modeDev = false;
 
     static {
         loadingProperties();
@@ -28,63 +33,68 @@ public class Config {
 
     //-------------------DEFAULT PROPERTIES-------------------
 
-    public static int getCodeLength() {
-        codeLength1 = Integer.parseInt((properties.getProperty("codeLength")));
-        return codeLength1;
+    public static int getDefaultCodeLength() {
+        codeLength = Integer.parseInt((properties.getProperty("codeLength")));
+        return codeLength;
     }
 
-    public static int getMaxRound() {
-        maxRound1 = Integer.parseInt((properties.getProperty("maxRound")));
-        return maxRound1;
+    public static int getDefaultMaxRound() {
+        maxRound = Integer.parseInt((properties.getProperty("maxRound")));
+        return maxRound;
     }
 
-    public static int getNbDigit() {
-        nbDigit1 = Integer.parseInt((properties.getProperty("nbDigit")));
-        return nbDigit1;
+    public static int getDefaultNbDigit() {
+        nbDigit = Integer.parseInt((properties.getProperty("nbDigit")));
+        return nbDigit;
     }
 
-    public static int getCodeIndex() {
-        codeIndex1 = Integer.parseInt((properties.getProperty("codeIndex")));
-        return codeIndex1;
+    public static int getDefaultCodeIndex() {
+        codeIndex = Integer.parseInt((properties.getProperty("codeIndex")));
+        return codeIndex;
     }
 
-    public static boolean isModeDev() {
-        modeDev1 = Boolean.parseBoolean((properties.getProperty("modeDev")));
-        return modeDev1;
+    public static boolean isDefaultModeDev() {
+//    	if(!modeDev1) {
+//    		return Boolean.parseBoolean((properties.getProperty("modeDev")));
+//    	} else {
+//    		return true;
+//    	}
+        modeDev = Boolean.parseBoolean((properties.getProperty("modeDev")));
+        return modeDev;
     }
 
     //---------------GETTERS AND SETTERS-------------------
 
-    public static int getCodeLength1() {
-        return codeLength1;
+    public static int getCodeLength() {
+        return codeLength;
     }
 
-    public static void setCodeLength1(int codeLength1) {
-        Config.codeLength1 = codeLength1;
+    public static void setCodeLength(int codeLength) {
+        Config.codeLength = codeLength;
     }
 
-    public static int getMaxRound1() {
-        return maxRound1;
+    public static int getMaxRound() {
+        return maxRound;
     }
 
-    public static void setMaxRound1(int maxRound1) {
-        Config.maxRound1 = maxRound1;
+    public static void setMaxRound(int maxRound) {
+        Config.maxRound = maxRound;
     }
 
-    public static int getNbDigit1() {
-        return nbDigit1;
+    public static int getNbDigit() {
+        return nbDigit;
     }
 
-    public static void setNbDigit1(int nbDigit1) {
-        Config.nbDigit1 = nbDigit1;
+    public static void setNbDigit(int nbDigit) {
+        Config.nbDigit = nbDigit;
     }
 
-    public static boolean isModeDev1() {
-        return modeDev1;
+    public static boolean isModeDev() {
+        return modeDev;
     }
 
     public static void setModeDev(boolean modeDev) {
-        Config.modeDev1 = modeDev;
+        Config.modeDev = modeDev;
     }
 
     //--------------METHOD LOADING PROPERTIES------------------
@@ -92,10 +102,11 @@ public class Config {
     private static void loadingProperties() {
         try {
             InputStream inputStream = new FileInputStream(CONFIG_FILE);
-            properties.load( inputStream);
+            properties.load(inputStream);
             inputStream.close( );
         }
         catch ( IOException e ) {
+            logger.error("General IO Exception");
             e.printStackTrace( );
         }
     }

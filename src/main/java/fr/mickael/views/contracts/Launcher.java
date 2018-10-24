@@ -1,12 +1,18 @@
 package main.java.fr.mickael.views.contracts;
 
+import main.java.fr.mickael.util.Config;
 import main.java.fr.mickael.util.Constants;
 import main.java.fr.mickael.views.View;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Launcher implements View {
+
+    private static Logger logger = LogManager.getLogger();
+
     @Override
     public void display() {
         System.out.println("\tWELCOME TO");
@@ -25,13 +31,19 @@ public class Launcher implements View {
         System.out.println("\t  \\   //\\   //   | ||     | ||___ | ||___ | |\\ \\\\  | ||___  | ||");
         System.out.println("\t   \\_//  \\_//    |_||     |_____|||_____|||_||\\_\\\\ |_____|| |_||");
         System.out.println("\n\n");
+
+        //------If Dev Mode ON------
+        if (Config.isModeDev()) {
+            System.out.printf("%47s", "DEVELOPER MODE ON\n\n");
+        }
+
         System.out.println(String.join("#",Collections.nCopies(41, "#")));
         System.out.printf("%40s", "RULES\n");
         System.out.println(String.join("#",Collections.nCopies(41, "#")));
 
         System.out.println();
         System.out.println("Put your brain on the table. You've got the choice between two game :\n");
-        System.out.println("\t\tMORE OR LESS and MASTERMIND");
+        System.out.println("\t\t\t\tMORE OR LESS and MASTERMIND");
         System.out.println();
         System.out.println("Three modes are available for each game : CHALLENGER, DEFENDER or DUAL");
 
@@ -53,10 +65,16 @@ public class Launcher implements View {
 
     @Override
     public String getInput() {
+        logger.debug("Method getInput() of the class " + getClass().getSimpleName());
+        if (Config.isModeDev()) {
+            System.out.println("DEVELOPER MODE ON\n");
+        }
         System.out.println("PRESS ENTER TO CONINUE\r");
         Scanner scanner = new Scanner(System.in);
+        if (scanner.nextLine().equals("dev")){
+            Config.setModeDev(true);
+        }
         return scanner.nextLine();
     }
 
-    //méthode de lancement. Elle demande quoi afficher.
 }

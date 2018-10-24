@@ -2,7 +2,6 @@ package main.java.fr.mickael.business;
 
 import main.java.fr.mickael.model.Player;
 import main.java.fr.mickael.util.Config;
-import main.java.fr.mickael.util.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,16 +10,29 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class of the game Mastermind
+ * Implementation of the game for the mode dual
+ * @author M. COZ
+ *
+ */
 public class MastermindDual extends Game {
 
     private static Logger logger = LogManager.getLogger();
     private int codeLength = Config.getCodeLength();
     private int maxRound = Config.getMaxRound();
+    private int nbDigit = Config.getNbDigit();
 
+    /**
+     * Method play.
+     * Method that launch the board of the current game.
+     * Implementation of the abstract class.
+     */
     @Override
     public void play() {
 
-        logger.debug("initialisation des variables");
+        logger.debug("running play() of the " + getClass().getSimpleName() + " game.");
+        logger.info("variables initializing");
         int round = 0;
         boolean asWon = false;
         int[] playerOneSecretCode;
@@ -45,10 +57,12 @@ public class MastermindDual extends Game {
         System.out.println("The computer's secret code has been defined !\n"
                 + String.join("*", Collections.nCopies(40, "*")) + "\n");
 
+        logger.info("Your secret code is : " + Arrays.toString(playerOneSecretCode)
+                + "\nThe computer secret code is : " + Arrays.toString(playerTwoSecretCode));
+
         //mode DEV
-        System.out.println(Config.isModeDev());
-        System.out.println(Config.isModeDev1());
-        if (Config.isModeDev1()) {
+        if (Config.isModeDev()) {
+            System.out.println("DEVELOPER MODE");
             System.out.println("Your secret code is : " + Arrays.toString(playerOneSecretCode));
             System.out.println("The computer secret code is : " + Arrays.toString(playerTwoSecretCode));
         }
@@ -112,22 +126,52 @@ public class MastermindDual extends Game {
         }
     }
 
+    /*
+     * Method to compare the secret code and the guess code
+     * @param guessCode		the code of the attacker
+     * @param secretCode	the code of the defender
+     * @return String 		the result of the comparison
+     */
     @Override
     public String compareCode(int[] guessCode, int[] secretCode) {
+        logger.debug("run method compareCode()");
         StringBuffer strB = new StringBuffer();
         int nbWellPlaced = 0;
-        // calcul des bien placés
+        // number of well placed number in the code
         for (int i = 0; i < codeLength; i++){
             if (guessCode[i] == secretCode[i]){
                 nbWellPlaced++;
             }
         }
-        // calcul des présents
-        int nbPresent = Constants.getNbPresent(guessCode, secretCode, nbWellPlaced);
+        // number of present number in the code
+        int nbPresent = - nbWellPlaced;
+        for (int i = 0; i < nbDigit; i++){
+            int presentSecretCode = 0;
+            int presentGuessCode = 0;
+            for (int j = 0; j < codeLength; j++){
+                if (secretCode[j] == i){
+                    presentSecretCode++;
+                }
+                if (guessCode[j] == i){
+                    presentGuessCode++;
+                }
+            }
+            if (presentSecretCode < presentGuessCode){
+                nbPresent = presentSecretCode + nbPresent;
+            } else {
+                nbPresent = presentGuessCode + nbPresent;
+            }
+        }
         strB.append(nbWellPlaced + " Well placed | " + nbPresent + " Present\n");
         return strB.toString();
     }
 
+    /**
+     * Private method that take the answer in parameter
+     * and return a boolean
+     * @param strB
+     * @return boolean
+     */
     private static boolean isAsWon(String strB) {
         return strB.equals(Config.getCodeLength() + " well placed | 0 present");
     }

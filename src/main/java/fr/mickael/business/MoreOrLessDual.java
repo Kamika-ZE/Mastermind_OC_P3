@@ -2,19 +2,36 @@ package main.java.fr.mickael.business;
 
 import main.java.fr.mickael.model.Player;
 import main.java.fr.mickael.util.Config;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class of the game More or Less
+ * Implementation of the game for the mode dual
+ * @author M. COZ
+ *
+ */
 public class MoreOrLessDual extends Game{
+
+    private static Logger logger = LogManager.getLogger();
     private int codeLength = Config.getCodeLength();
     private int maxRound = Config.getMaxRound();
 
+    /**
+     * Method play.
+     * Method that launch the board of the current game.
+     * Implementation of the abstract class.
+     */
     @Override
     public void play() {
 
+        logger.debug("running play() of the " + getClass().getSimpleName() + " game.");
+        logger.info("variables initializing");
         int round = 0;
         boolean asWon = false;
         int[] playerOneSecretCode;
@@ -38,6 +55,16 @@ public class MoreOrLessDual extends Game{
         playerTwoSecretCode = defender.generateSecretCode();
         System.out.println("The computer's secret code has been defined !\n"
                 + String.join("*", Collections.nCopies(40, "*")) + "\n");
+
+        logger.info("Your secret code is : " + Arrays.toString(playerOneSecretCode)
+                + "\nThe computer secret code is : " + Arrays.toString(playerTwoSecretCode));
+
+        //mode DEV
+        if (Config.isModeDev()) {
+            System.out.println("DEVELOPER MODE");
+            System.out.println("Your secret code is : " + Arrays.toString(playerOneSecretCode));
+            System.out.println("The computer secret code is : " + Arrays.toString(playerTwoSecretCode));
+        }
 
         List<Player> players = new LinkedList<>();
         players.add(attacker);
@@ -97,8 +124,15 @@ public class MoreOrLessDual extends Game{
         }
     }
 
+    /*
+     * Method to compare the secret code and the guess code
+     * @param guessCode		the code of the attacker
+     * @param secretCode	the code of the defender
+     * @return String 		the result of the comparison
+     */
     @Override
     public String compareCode(int[] guessCode, int[] secretCode) {
+        logger.debug("run method compareCode()");
         StringBuffer strB = new StringBuffer();
         for (int i = 0; i < codeLength; i++) {
             if (guessCode[i] == secretCode[i]) {
@@ -112,6 +146,12 @@ public class MoreOrLessDual extends Game{
         return strB.toString();
     }
 
+    /**
+     * Private method that take the answer in parameter
+     * and return a boolean
+     * @param strB
+     * @return boolean
+     */
     private static boolean isAsWon(String strB) {
         if (strB.contains("-") || strB.contains("+")){
             return false;

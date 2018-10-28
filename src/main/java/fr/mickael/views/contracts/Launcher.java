@@ -66,12 +66,12 @@ public class Launcher implements View {
     @Override
     public String getInput() {
         logger.debug("Method getInput() of the class " + getClass().getSimpleName());
+        Scanner scanner = new Scanner(System.in);
         if (Config.isModeDev()) {
             System.out.println("DEVELOPER MODE ON\n");
         }
-        System.out.println("PRESS ENTER TO CONINUE\r");
-        Scanner scanner = new Scanner(System.in);
-        if (scanner.nextLine().equals("dev")){
+        System.out.println("PRESS ENTER TO CONINUE");
+        if (scanner.nextLine().equals("devOn")) {
             Config.setModeDev(true);
         }
         return scanner.nextLine();

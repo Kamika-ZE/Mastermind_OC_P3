@@ -112,14 +112,14 @@ public class MainController {
         switch (difficultyChoiceNumber) {
             case "1":
                 Config.setCodeLength(4);
-                Config.setMaxRound(10);
+                Config.setMaxRound(8);
                 Config.setNbDigit(6);
                 break;
 
             case "2":
-                Config.setCodeLength(4);
-                Config.setMaxRound(10);
-                Config.setNbDigit(10);
+                Config.getDefaultCodeLength();
+                Config.getDefaultMaxRound();
+                Config.getDefaultNbDigit();
                 break;
 
             case "3":
@@ -198,9 +198,16 @@ public class MainController {
                 break;
 
             case "5":
-                System.out.println("Good bye");
+                System.out.println("Good bye\n\n"
+                    + "This window will close automatically.");
+                try {
+                    Thread.sleep(1000);
+                }
+                catch (Exception e) {
+                    logger.warn("Exception : " + e.getMessage());
+                    e.printStackTrace();
+                }
                 break;
         }
     }
-
 }

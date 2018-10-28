@@ -24,7 +24,6 @@ public class Config {
     private static int codeLength = 0;
     private static int maxRound = 0;
     private static int nbDigit = 0;
-    private static int codeIndex = 0;
     private static boolean modeDev = false;
 
     static {
@@ -48,17 +47,7 @@ public class Config {
         return nbDigit;
     }
 
-    public static int getDefaultCodeIndex() {
-        codeIndex = Integer.parseInt((properties.getProperty("codeIndex")));
-        return codeIndex;
-    }
-
     public static boolean isDefaultModeDev() {
-//    	if(!modeDev1) {
-//    		return Boolean.parseBoolean((properties.getProperty("modeDev")));
-//    	} else {
-//    		return true;
-//    	}
         modeDev = Boolean.parseBoolean((properties.getProperty("modeDev")));
         return modeDev;
     }

@@ -4,10 +4,12 @@ import main.java.fr.mickael.util.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
+
 public class ComputerMoreOrLess extends Computer {
 
     private static Logger logger = LogManager.getLogger();
-    private int[][] ecart;
+    private int[][] gap;
     private int codeLength = Config.getCodeLength();
 
     /**
@@ -17,9 +19,9 @@ public class ComputerMoreOrLess extends Computer {
     public ComputerMoreOrLess() {
         super.computerSecretCode = new int[codeLength];
         super.computerGuessCode = new int[codeLength];
-        this.ecart = new int[codeLength][];
-        for (int i = 0; i < ecart.length; i++){
-            this.ecart[i] = new int[]{0, 10};
+        this.gap = new int[codeLength][];
+        for (int i = 0; i < gap.length; i++){
+            this.gap[i] = new int[]{0, 10};
         }
     }
 
@@ -31,23 +33,23 @@ public class ComputerMoreOrLess extends Computer {
     @Override
     public int[] guessTheCode() {
         for(int i = 0; i < computerGuessCode.length; i++){
-            computerGuessCode[i] = (ecart[i][0] + ecart[i][1])/2;
+            computerGuessCode[i] = (gap[i][0] + gap[i][1])/2;
         }
         return computerGuessCode;
     }
 
     /**
      * Method used to filter the result by dichotomy
-     * and allow the computer to reduce the gaps.
+     * and allow the computer to reduce the gap.
      */
     @Override
     public void getClues(char[] answer) {
-
+        logger.debug("running getClues(). Take a parameter char[] answer : " + Arrays.toString(answer));
         for (int i = 0; i < 4; i++) {
             if (answer[i] == '-') {
-                ecart[i][1] = computerGuessCode[i];
+                gap[i][1] = computerGuessCode[i];
             } else if (answer[i] == '+') {
-                ecart[i][0] = computerGuessCode[i];
+                gap[i][0] = computerGuessCode[i];
             }
         }
         System.out.println(answer);

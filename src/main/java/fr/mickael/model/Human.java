@@ -57,10 +57,10 @@ public class Human implements Player{
         while (guessCode == null){
             try {
                 guessCode = getGuessCode();
-            } catch (CodeInvalidException e) {
-                System.out.println(e.getLocalizedMessage());
             } catch (NumberFormatException e) {
                 System.out.println("\nBe careful. Use number only please.\n");
+            } catch (CodeInvalidException e) {
+                System.out.println(e.getLocalizedMessage());
             }
         }
         return guessCode;
@@ -112,7 +112,8 @@ public class Human implements Player{
             throw new CodeInvalidException("\nBe careful ! The code size is "
                     + Config.getCodeLength() + " !\n");
         }
-        if (str.contains(String.valueOf(Config.getNbDigit()))) {
+        if (str.chars().mapToObj(c -> (char) c)
+                .anyMatch(c -> Integer.parseInt(String.valueOf(c)) >= Config.getNbDigit())) {
             throw new CodeInvalidException("\nBe careful ! Please choose any number between 0 and "
                     + (Config.getNbDigit() - 1) + " !\n");
         }

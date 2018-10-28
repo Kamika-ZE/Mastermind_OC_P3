@@ -37,7 +37,7 @@ public class ComputerMastermind extends Computer {
      */
     @Override
     public int[] guessTheCode() {
-        // tous les poids
+        // If the list allPossibilities is empty, return a first try with a basic number sequence.
         if (allPossibilities.isEmpty()) {
             int[] codeTemp = new int[codeLength];
             for (int i = 0; i < codeLength; i++) {
@@ -45,6 +45,7 @@ public class ComputerMastermind extends Computer {
             }
             computerGuessCode = codeTemp;
 
+        // Else use a stream to calculate all the int[]code/weight couple. Return the code with the minimum weight.
         } else {
             Optional<Pair<int[], Integer>> min = allPossibilities.parallelStream()
                     .map(code -> new Pair<>(code, getPropositionWeight(code)))
@@ -57,10 +58,11 @@ public class ComputerMastermind extends Computer {
 
     /**
      * Method used to reduce the list of all the possible code
-     *
+     * @param answer    the answer given by the board game
      */
     @Override
     public void getClues(char[] answer) {
+        logger.debug("running getClues(). Take a parameter : char[] answer");
         StringBuffer strB = new StringBuffer();
         for (int i = 0; i < answer.length; i++) {
             strB.append(answer[i]);
@@ -82,7 +84,6 @@ public class ComputerMastermind extends Computer {
                     .filter(code -> getScoreGuessCode(code, computerGuessCode) == score)
                     .collect(Collectors.toList());
         }
-
     }
 
     /**
@@ -143,12 +144,12 @@ public class ComputerMastermind extends Computer {
 
     /**
      * Method used to calculate the score of the current guess code.
-     * @param guessCode
-     * @param secretCode
+     * @param guessCode             the guessCode to compare
+     * @param secretCode            the secretCode
      * @return scoreGuessCode		the score of the guess code.
      */
     private int getScoreGuessCode(int[] guessCode, int[] secretCode) {
-        int scoreGuessCode = 0;
+        int scoreGuessCode;
         int nbWellPlaced = 0;
 
         // number of well placed number in the code
@@ -185,7 +186,7 @@ public class ComputerMastermind extends Computer {
     //improve to find a generic formula
     /**
      * Method used to determine the 'weight' of a code.
-     * @param array		an code
+     * @param array		    the current code
      * @return weightProp	the 'weight' of the code tested
      */
     private int getPropositionWeight(int[] array) {
@@ -204,5 +205,4 @@ public class ComputerMastermind extends Computer {
         }
         return weightProp;
     }
-
 }

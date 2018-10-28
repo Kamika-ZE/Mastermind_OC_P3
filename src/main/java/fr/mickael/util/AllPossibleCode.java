@@ -1,8 +1,5 @@
 package main.java.fr.mickael.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +10,6 @@ import java.util.List;
  */
 public class AllPossibleCode {
 
-    private static Logger logger = LogManager.getLogger();
     private List<int[]> allCode;
     private int codeLength = Config.getCodeLength();
     private int nbDigit = Config.getNbDigit();

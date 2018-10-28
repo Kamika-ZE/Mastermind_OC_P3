@@ -13,7 +13,7 @@ public class Main {
 
         /*if the argument is "modeDev" or modeDev is true in config_file, the game will start
         in developer mode*/
-        if (Config.isModeDev() || (args.length > 0 && args[0].equals("modeDev"))){
+        if (Config.isDefaultModeDev() || (args.length > 0 && args[0].equals("modeDev"))){
             logger.info("Game starting in developer mode");
             Config.setModeDev(true);
         }

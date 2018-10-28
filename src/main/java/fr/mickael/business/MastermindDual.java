@@ -16,7 +16,7 @@ import java.util.List;
  * @author M. COZ
  *
  */
-public class MastermindDual extends Game {
+public class MastermindDual extends Mastermind {
 
     private static Logger logger = LogManager.getLogger();
     private int codeLength = Config.getCodeLength();
@@ -38,7 +38,7 @@ public class MastermindDual extends Game {
         int[] playerOneSecretCode;
         int[] playerTwoSecretCode;
         int[] attackerGuessCode;
-        String compareCodeAttacker = "";
+        String compareCodeAttacker;
         String numberPlayer = "";
 
         System.out.println("\nMASTERMIND\n"
@@ -124,55 +124,5 @@ public class MastermindDual extends Game {
                     + String.join("#", Collections.nCopies(40, "#"))
                     + "\n\n");
         }
-    }
-
-    /*
-     * Method to compare the secret code and the guess code
-     * @param guessCode		the code of the attacker
-     * @param secretCode	the code of the defender
-     * @return String 		the result of the comparison
-     */
-    @Override
-    public String compareCode(int[] guessCode, int[] secretCode) {
-        logger.debug("run method compareCode()");
-        StringBuffer strB = new StringBuffer();
-        int nbWellPlaced = 0;
-        // number of well placed number in the code
-        for (int i = 0; i < codeLength; i++){
-            if (guessCode[i] == secretCode[i]){
-                nbWellPlaced++;
-            }
-        }
-        // number of present number in the code
-        int nbPresent = - nbWellPlaced;
-        for (int i = 0; i < nbDigit; i++){
-            int presentSecretCode = 0;
-            int presentGuessCode = 0;
-            for (int j = 0; j < codeLength; j++){
-                if (secretCode[j] == i){
-                    presentSecretCode++;
-                }
-                if (guessCode[j] == i){
-                    presentGuessCode++;
-                }
-            }
-            if (presentSecretCode < presentGuessCode){
-                nbPresent = presentSecretCode + nbPresent;
-            } else {
-                nbPresent = presentGuessCode + nbPresent;
-            }
-        }
-        strB.append(nbWellPlaced + " Well placed | " + nbPresent + " Present\n");
-        return strB.toString();
-    }
-
-    /**
-     * Private method that take the answer in parameter
-     * and return a boolean
-     * @param strB
-     * @return boolean
-     */
-    private static boolean isAsWon(String strB) {
-        return strB.equals(Config.getCodeLength() + " well placed | 0 present");
     }
 }

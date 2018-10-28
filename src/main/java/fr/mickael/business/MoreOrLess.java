@@ -33,7 +33,7 @@ public class MoreOrLess extends Game{
         boolean asWon = false;
         int[] secretCode;
         int[] guessCode;
-        String compareCode = "";
+        String compareCode;
 
         System.out.println("\nMORE OR LESS\n"
                 + String.join("*", Collections.nCopies(40, "*")) + "\n");
@@ -63,6 +63,9 @@ public class MoreOrLess extends Game{
         if (Config.isModeDev()) {
             System.out.println("DEVELOPER MODE");
             System.out.println("The secret code is : " + Arrays.toString(secretCode));
+            System.out.println("nbDigit : " + Config.getNbDigit());
+            System.out.println("codeLength : " + Config.getCodeLength());
+            System.out.println("maxRound : " + Config.getMaxRound());
         }
 
         while(!asWon && (round < maxRound)) {
@@ -100,7 +103,9 @@ public class MoreOrLess extends Game{
      */
     @Override
     public String compareCode(int[] guessCode, int[] secretCode) {
-        logger.debug("run method compareCode()");
+        logger.debug("run method compareCode().\n"
+                + "Parameters : int[] guessCode = " + Arrays.toString(guessCode) + "\n"
+                + "int[] secretCode = " + Arrays.toString(secretCode));
         StringBuffer strB = new StringBuffer();
         for (int i = 0; i < codeLength; i++) {
             if (guessCode[i] == secretCode[i]) {
@@ -116,11 +121,11 @@ public class MoreOrLess extends Game{
 
     /**
      * Private method that take the answer in parameter
-     * and return a boolean
-     * @param strB
+     * and return a boolean depending of the value of the parameter
+     * @param strB      the String return by the method compareCode()
      * @return boolean
      */
-    private static boolean isAsWon(String strB) {
+    protected static boolean isAsWon(String strB) {
         if (strB.contains("-") || strB.contains("+")){
             return false;
         }

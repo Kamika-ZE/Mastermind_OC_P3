@@ -32,6 +32,7 @@ public abstract class Computer implements Player{
 
     @Override
     public int[] generateSecretCode() {
+        logger.debug("running generateSecreteCode(). Return an int[] generate by the private method getSecretCode().");
         return getSecretCode();
     }
 

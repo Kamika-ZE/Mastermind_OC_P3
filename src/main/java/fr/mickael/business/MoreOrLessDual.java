@@ -16,7 +16,7 @@ import java.util.List;
  * @author M. COZ
  *
  */
-public class MoreOrLessDual extends Game{
+public class MoreOrLessDual extends MoreOrLess{
 
     private static Logger logger = LogManager.getLogger();
     private int codeLength = Config.getCodeLength();
@@ -37,7 +37,7 @@ public class MoreOrLessDual extends Game{
         int[] playerOneSecretCode;
         int[] playerTwoSecretCode;
         int[] attackerGuessCode;
-        String compareCodeAttacker = "";
+        String compareCodeAttacker;
         String numberPlayer = "";
 
         System.out.println("\nMORE OR LESS\n"
@@ -124,39 +124,6 @@ public class MoreOrLessDual extends Game{
         }
     }
 
-    /*
-     * Method to compare the secret code and the guess code
-     * @param guessCode		the code of the attacker
-     * @param secretCode	the code of the defender
-     * @return String 		the result of the comparison
-     */
-    @Override
-    public String compareCode(int[] guessCode, int[] secretCode) {
-        logger.debug("run method compareCode()");
-        StringBuffer strB = new StringBuffer();
-        for (int i = 0; i < codeLength; i++) {
-            if (guessCode[i] == secretCode[i]) {
-                strB.append("=");
-            } else if (guessCode[i] < secretCode[i]) {
-                strB.append("+");
-            } else {
-                strB.append("-");
-            }
-        }
-        return strB.toString();
-    }
 
-    /**
-     * Private method that take the answer in parameter
-     * and return a boolean
-     * @param strB
-     * @return boolean
-     */
-    private static boolean isAsWon(String strB) {
-        if (strB.contains("-") || strB.contains("+")){
-            return false;
-        }
-        return true;
-    }
 }
 

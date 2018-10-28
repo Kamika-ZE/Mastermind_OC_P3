@@ -35,7 +35,7 @@ public class Mastermind extends Game{
         boolean asWon = false;
         int[] secretCode;
         int[] guessCode;
-        String compareCode = "";
+        String compareCode;
 
         System.out.println("\nMASTERMIND\n"
                 + String.join("*", Collections.nCopies(40, "*")) + "\n");
@@ -101,7 +101,9 @@ public class Mastermind extends Game{
      */
     @Override
     public String compareCode(int[] guessCode, int[] secretCode) {
-        logger.debug("run method compareCode()");
+        logger.debug("run method compareCode().\n"
+                + "Parameters : int[] guessCode = " + Arrays.toString(guessCode) + "\n"
+                + "int[] secretCode = " + Arrays.toString(secretCode));
         StringBuffer strB = new StringBuffer();
         int nbWellPlaced = 0;
         // number of well placed number in the code
@@ -135,11 +137,11 @@ public class Mastermind extends Game{
 
     /**
      * Private method that take the answer in parameter
-     * and return a boolean
-     * @param strB
+     * and return a boolean depending of the value of the parameter
+     * @param strB      the String return by the method compareCode()
      * @return boolean
      */
-    private static boolean isAsWon(String strB) {
+    protected static boolean isAsWon(String strB) {
         return strB.equals(Config.getCodeLength()+ " Well placed | 0 Present\n");
     }
 }

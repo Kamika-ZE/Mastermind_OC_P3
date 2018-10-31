@@ -40,7 +40,7 @@ public class AllPossibleCode {
 
     /**
      * Method that return the list of all possible code.
-     * @return
+     * @return allCode a list of all possible code.
      */
     public List<int[]> getAllCode () {
         return allCode;

@@ -11,6 +11,7 @@ public class ComputerMoreOrLess extends Computer {
     private static Logger logger = LogManager.getLogger();
     private int[][] gap;
     private int codeLength = Config.getCodeLength();
+    private int nbDigit = Config.getNbDigit();
 
     /**
      * Constructor for the more or less computer.
@@ -21,7 +22,7 @@ public class ComputerMoreOrLess extends Computer {
         super.computerGuessCode = new int[codeLength];
         this.gap = new int[codeLength][];
         for (int i = 0; i < gap.length; i++){
-            this.gap[i] = new int[]{0, 10};
+            this.gap[i] = new int[]{0, nbDigit};
         }
     }
 

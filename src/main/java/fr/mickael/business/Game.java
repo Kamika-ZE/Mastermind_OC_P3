@@ -32,8 +32,8 @@ public abstract class Game {
     /**
      * Method to set the player for each game.
      * A player can be a computer or a human.
-     * @param attacker
-     * @param defender
+     * @param attacker      the attacking player
+     * @param defender      the defending player
      */
     public void setPlayers (Player attacker, Player defender){
         this.attacker = attacker;

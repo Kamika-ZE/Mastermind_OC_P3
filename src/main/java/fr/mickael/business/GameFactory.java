@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * class using an implementation of factory pattern
  * this class contain all the method to launch each type of game
- * @autor M. COZ
+ * @author M. COZ
  */
 
 public class GameFactory {

@@ -15,7 +15,24 @@ public class Launcher implements View {
 
     @Override
     public void display() {
-        System.out.println("\tWELCOME TO");
+        System.out.println("\tWELCOME");
+        try {
+            Thread.sleep(800);
+        }
+        catch (Exception e) {
+            logger.warn("Exception : " + e.getMessage());
+            e.printStackTrace();
+        }
+        System.out.println("\tTO");
+
+        try {
+            Thread.sleep(800);
+        }
+        catch (Exception e) {
+            logger.warn("Exception : " + e.getMessage());
+            e.printStackTrace();
+        }
+
         System.out.println("\t________  ________   ________  ____ ___   ____");
         System.out.println("\t| ____ \\\\ | ____ \\\\  | ____ || | || | \\\\  | ||");
         System.out.println("\t| || | || | ||  \\ \\\\ | || | || | || |  \\\\ | ||");
@@ -35,6 +52,13 @@ public class Launcher implements View {
         //------If Dev Mode ON------
         if (Config.isModeDev()) {
             System.out.printf("%47s", "DEVELOPER MODE ON\n\n");
+        }
+        try {
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+            logger.warn("Exception : " + e.getMessage());
+            e.printStackTrace();
         }
 
         System.out.println(String.join("#",Collections.nCopies(41, "#")));
@@ -71,7 +95,7 @@ public class Launcher implements View {
             System.out.println("DEVELOPER MODE ON\n");
         }
         System.out.println("PRESS ENTER TO CONINUE");
-        if (scanner.nextLine().equals("devOn")) {
+        if (scanner.nextLine().equals("modeDev")) {
             Config.setModeDev(true);
         }
         return scanner.nextLine();

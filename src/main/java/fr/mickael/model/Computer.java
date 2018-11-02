@@ -48,9 +48,9 @@ public abstract class Computer implements Player{
     @Override
     public void sendScore(boolean win) {
         if (win){
-            System.out.println("\nYOU ARE LUCKY ! THE COMPUTER HAS LOST !\n");
-        } else {
             System.out.println("\nOH MY GOD ! THE COMPUTER HAS WON !\n");
+        } else {
+            System.out.println("\nYOU ARE LUCKY ! THE COMPUTER HAS LOST !\n");
         }
     }
 

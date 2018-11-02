@@ -98,7 +98,7 @@ public class Launcher implements View {
         if (scanner.nextLine().equals("modeDev")) {
             Config.setModeDev(true);
         }
-        return scanner.nextLine();
+        return null;
     }
 
 }

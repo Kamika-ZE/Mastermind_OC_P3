@@ -1,7 +1,6 @@
 package main.java.fr.mickael.model;
 
 import javafx.util.Pair;
-import main.java.fr.mickael.util.Config;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,8 +15,6 @@ public class ComputerMastermind extends Computer {
     private static Logger logger = LogManager.getLogger();
     private List<int[]> allPossibilities;
     private List<Integer> allPossibleScore;
-    private int codeLength = Config.getCodeLength();
-    private int nbDigit = Config.getNbDigit();
 
 
     /**
@@ -25,8 +22,7 @@ public class ComputerMastermind extends Computer {
      * Inherits the computer constructor
      */
     public ComputerMastermind() {
-        super.computerSecretCode = new int[codeLength];
-        super.computerGuessCode = new int[codeLength];
+        super();
         this.allPossibilities = new ArrayList<>();
         this.allPossibleScore = generateAllPossibleScore();
     }
